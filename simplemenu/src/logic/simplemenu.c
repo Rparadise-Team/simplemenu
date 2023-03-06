@@ -131,15 +131,15 @@ void initialSetup2() {
 	enableKeyRepeat();
 	lastChargeLevel=getBatteryLevel();
 	beforeTryingToSwitchGroup = activeGroup;
+	#if defined MIYOOMINI
+	audioFix = getCurrentSystemValue("audiofix");
+	luminationValue = getCurrentSystemValue("lumination");
+	hueValue = getCurrentSystemValue("hue");
+	saturationValue = getCurrentSystemValue("saturation");
+	contrastValue = getCurrentSystemValue("contrast");
+	#endif
 	brightnessValue = getCurrentBrightness();
 	maxBrightnessValue = getMaxBrightness();
-    #if defined MIYOOMINI
-    audioFix = getCurrentSystemValue("audiofix");
-    luminationValue = getCurrentSystemValue("lumination");
-    hueValue = getCurrentSystemValue("hue");
-    saturationValue = getCurrentSystemValue("saturation");
-    contrastValue = getCurrentSystemValue("contrast");
-    #endif
 }
 
 void processEvents() {

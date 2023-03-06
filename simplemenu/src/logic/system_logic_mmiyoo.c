@@ -218,7 +218,11 @@ int getCurrentSystemValue(char const *key) {
     cJSON* item = NULL;
     int result = 0;
 
-    const char *request_body = load_file("/appconfigs/system.json");
+    char *settings_file = getenv("SETTINGS_FILE");
+    if (settings_file == NULL)
+        settings_file = "/appconfigs/system.json";
+
+    const char *request_body = load_file(settings_file);
     request_json = cJSON_Parse(request_body);
     item = cJSON_GetObjectItem(request_json, key);
     result = cJSON_GetNumberValue(item);
@@ -230,13 +234,17 @@ void setSystemValue(char const *key, int value) {
     cJSON* request_json = NULL;
     cJSON* item = NULL;
 
+    char *settings_file = getenv("SETTINGS_FILE");
+    if (settings_file == NULL)
+        settings_file = "/appconfigs/system.json";
+
     // Store in system.json
-    const char *request_body = load_file("/appconfigs/system.json");
+    const char *request_body = load_file(settings_file);
     request_json = cJSON_Parse(request_body);
     item = cJSON_GetObjectItem(request_json, key);
     cJSON_SetNumberValue(item, value);
 
-    FILE *file = fopen("/appconfigs/system.json", "w");
+    FILE *file = fopen(settings_file, "w");
     char *test = cJSON_Print(request_json);
     fputs(test, file);
     fclose(file);
