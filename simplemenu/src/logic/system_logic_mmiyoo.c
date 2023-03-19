@@ -36,13 +36,28 @@ static void initADC(void) {
 
 static int is_charging = 0;
 void checkCharging(void) {
-    int i = 0;
+  int charging = 0;
+  if (mmModel == 0) {
+    char *cmd = "cd /customer/app/ ; ./axp_test";
+    int axp_response_size = 100;
+    char buf[axp_response_size];
+    int battery = 0;
+    int voltage = 0;
+
+    FILE *fp;
+    fp = popen(cmd, "r");
+      if (fgets(buf, axp_response_size, fp) != NULL)
+        sscanf(buf,  "{\"battery\":%d, \"voltage\":%d, \"charging\":%d}", &battery, &voltage, &charging);
+    pclose(fp);
+    is_charging = charging;
+  } else {
     FILE *file = fopen("/sys/devices/gpiochip0/gpio/gpio59/value", "r");
     if (file!=NULL) {
-        fscanf(file, "%i", &i);
-        fclose(file);
+      fscanf(file, "%i", &charging);
+      fclose(file);
     }
-    is_charging = i;
+    is_charging = charging;
+  }
 }
 
 int percBat = 0;
