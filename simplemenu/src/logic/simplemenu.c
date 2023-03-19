@@ -129,6 +129,9 @@ void initialSetup2() {
 	#endif
 	determineStartingScreen(sectionCount);
 	enableKeyRepeat();
+	#if defined MIYOOMINI
+	mmModel = access("/customer/app/axp_test", F_OK);
+	#endif
 	lastChargeLevel=getBatteryLevel();
 	beforeTryingToSwitchGroup = activeGroup;
 	#if defined MIYOOMINI
@@ -137,7 +140,6 @@ void initialSetup2() {
 	hueValue = getCurrentSystemValue("hue");
 	saturationValue = getCurrentSystemValue("saturation");
 	contrastValue = getCurrentSystemValue("contrast");
-	mmModel = access("/customer/app/axp_test", F_OK);
 	#endif
 	brightnessValue = getCurrentBrightness();
 	maxBrightnessValue = getMaxBrightness();
