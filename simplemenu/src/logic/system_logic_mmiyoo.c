@@ -181,7 +181,20 @@ int getBatteryLevel() {
     int max_voltage;
     int voltage_now;
     int total;
-    int charge = checkADC();
+    int charge = 0;
+    if (mmModel)
+        charge = checkADC();
+    else {
+        char *cmd = "cd /customer/app/ ; ./axp_test";
+        int axp_response_size = 100;
+        char buf[axp_response_size];
+
+        FILE *fp;
+        fp = popen(cmd, "r");
+          if (fgets(buf, axp_response_size, fp) != NULL)
+            sscanf(buf,  "{\"battery\":%d, \"voltage\":%*d, \"charging\":%*d}", &charge);
+        pclose(fp);
+    }
     if (charge<=20)          return 1;
     else if (charge<=40)  return 2;
     else if (charge<=60)  return 3;
