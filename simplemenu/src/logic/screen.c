@@ -1025,7 +1025,10 @@ void drawShutDownScreen() {
 	drawRectangleToScreen(SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, black);
 	if (selectedShutDownOption==1) {
 		#ifdef MIYOOMINI
-		drawBigWhiteText("SHUTTING DOWN");
+		if (mmModel)
+			drawBigWhiteText("SHUTTING DOWN");
+		else
+			drawBigWhiteText("REBOOTING");
 		#else
 		drawBigWhiteText("REBOOTING");
 		#endif
@@ -1452,7 +1455,10 @@ void setupSettingsScreen() {
 				break;
 			case 1:
 				#ifdef MIYOOMINI
-				values[0] = "shutdown";
+				if (mmModel)
+					values[0] = "shutdown";
+				else
+					values[0] = "reboot";
 				#else
 				values[0] = "reboot";
 				#endif
@@ -1465,7 +1471,10 @@ void setupSettingsScreen() {
 				break;
 			case 1:
 				#ifdef MIYOOMINI
-				values[0] = "shutdown";
+				if (mmModel)
+					values[0] = "shutdown";
+				else
+					values[0] = "reboot";
 				#else
 				values[0] = "reboot";
 				#endif

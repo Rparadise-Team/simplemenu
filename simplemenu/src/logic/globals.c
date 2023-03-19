@@ -122,6 +122,7 @@ int luminationValue;
 int hueValue;
 int saturationValue;
 int contrastValue;
+int mmModel;
 #endif
 pthread_t myThread;
 

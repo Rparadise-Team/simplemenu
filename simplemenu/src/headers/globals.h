@@ -145,6 +145,7 @@ extern int luminationValue;
 extern int hueValue;
 extern int saturationValue;
 extern int contrastValue;
+extern int mmModel;
 #endif
 extern pthread_t myThread;
 

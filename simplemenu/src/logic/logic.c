@@ -206,7 +206,10 @@ void quit() {
 			execlp("sh", "sh", "-c", "sync && reboot", NULL);
 		} else {
 			#ifdef MIYOOMINI
-			execlp("sh", "sh", "-c", "sync && reboot", NULL);
+			if (mmModel)
+				execlp("sh", "sh", "-c", "sync && reboot", NULL);
+			else
+				execlp("sh", "sh", "-c", "sync && poweroff", NULL);
 			#else
 			execlp("sh", "sh", "-c", "sync && poweroff", NULL);
 			#endif
@@ -216,7 +219,10 @@ void quit() {
 			execlp("sh", "sh", "-c", "sync && reboot", NULL);
 		} else if (selectedShutDownOption == 2) {
 			#ifdef MIYOOMINI
-			execlp("sh", "sh", "-c", "sync && reboot", NULL);
+			if (mmModel)
+				execlp("sh", "sh", "-c", "sync && reboot", NULL);
+			else
+				execlp("sh", "sh", "-c", "sync && poweroff", NULL);
 			#else
 			execlp("sh", "sh", "-c", "sync && poweroff", NULL);
 			#endif
