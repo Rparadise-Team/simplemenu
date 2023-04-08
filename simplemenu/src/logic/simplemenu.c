@@ -140,6 +140,7 @@ void initialSetup2() {
 	hueValue = getCurrentSystemValue("hue");
 	saturationValue = getCurrentSystemValue("saturation");
 	contrastValue = getCurrentSystemValue("contrast");
+	soundValue = getCurrentSystemValue("vol");
 	#endif
 	brightnessValue = getCurrentBrightness();
 	maxBrightnessValue = getMaxBrightness();

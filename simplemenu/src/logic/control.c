@@ -838,6 +838,7 @@ void performSystemSettingsChoosingAction() {
     AUDIOFIX_OPTION = 6;
     SCREEN_OPTION = 7;
     NUM_SYSTEM_OPTIONS = 8;
+    SOUND_MAX_VALUE = 20;
 #else
     NUM_SYSTEM_OPTIONS = 6;
 #endif
@@ -870,6 +871,19 @@ void performSystemSettingsChoosingAction() {
 					}
 				}
 			}
+#if defined MIYOOMINI
+		} else if (mmModel==0 && chosenSetting==VOLUME_OPTION) {
+			if (keys[BTN_LEFT]) {
+				if (soundValue>0) {
+					soundValue-=1;
+				}
+			} else {
+				if (soundValue<SOUND_MAX_VALUE) {
+					soundValue+=1;
+				}
+			}
+			setSound(soundValue);
+#endif
 		} else if (chosenSetting==BRIGHTNESS_OPTION) {
 			if (keys[BTN_LEFT]) {
 				if (brightnessValue>1) {

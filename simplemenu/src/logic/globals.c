@@ -86,6 +86,7 @@ int SATURATION_OPTION;
 int CONTRAST_OPTION;
 int NUM_SCREEN_OPTIONS;
 int COLOR_MAX_VALUE;
+int SOUND_MAX_VALUE;
 #endif
 int VOLUME_OPTION;
 int BRIGHTNESS_OPTION;
@@ -122,6 +123,7 @@ int luminationValue;
 int hueValue;
 int saturationValue;
 int contrastValue;
+int soundValue;
 int mmModel;
 #endif
 pthread_t myThread;

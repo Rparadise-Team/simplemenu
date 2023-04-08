@@ -1365,7 +1365,13 @@ void setupScreenSettings() {
 void setupSystemSettings() {
 	options[0]="Sound ";
 #ifdef MIYOOMINI
-	values[0] = "not available";
+	if (mmModel)
+		values[0] = "not available";
+	else {
+		values[0]=malloc(100);
+		sprintf(values[0],"%d",soundValue);
+		hints[0] = "ADJUST SOUND LEVEL";
+	}
 #endif
 	hints[0] = "PRESS A TO LAUNCH ALSAMIXER";
 

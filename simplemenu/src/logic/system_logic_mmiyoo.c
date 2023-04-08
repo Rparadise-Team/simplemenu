@@ -26,6 +26,10 @@ typedef struct {
 #define IOCTL_SAR_INIT                       _IO(SARADC_IOC_MAGIC, 0)
 #define IOCTL_SAR_SET_CHANNEL_READ_VALUE     _IO(SARADC_IOC_MAGIC, 1)
 
+// Set Volume (Raw)
+#define MI_AO_SETVOLUME 0x4008690b
+#define MI_AO_GETVOLUME 0xc008690c
+
 static SAR_ADC_CONFIG_READ  adcCfg = {0,0};
 static int sar_fd = 0;
 
@@ -226,6 +230,20 @@ char* load_file(char const* path) {
     buffer[length] = '\0';
 
     return buffer;
+}
+
+void setSound(int value) {
+  setSystemValue("vol", value);
+
+  int fd = open("/dev/mi_ao", O_RDWR);
+  if (fd >= 0) {
+    int rawVolumeValue = (value * 3) - 60;
+    int buf2[] = {0, 0};
+    uint64_t buf1[] = {sizeof(buf2), (uintptr_t)buf2};
+    buf2[1] = rawVolumeValue;
+    ioctl(fd, MI_AO_SETVOLUME, buf1);
+    close(fd);
+  }
 }
 
 int getCurrentBrightness() {
